@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443368618}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.19}
+  m_LocalPosition: {x: 0, y: 0, z: -3.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -636,7 +636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3267449464457063796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 7627602391162681356}
   - component: {fileID: 7484713613345201252}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: 'Progress bar '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1767,9 +1767,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   davePoint: {fileID: 1443368619}
-  TimeToDamage: 10
+  TimeToDamage: 5
   TimeToFix: 3
-  progressBar: {fileID: 0}
+  progressBar: {fileID: 6961624204551959247}
+  InterestDamage: 5
 --- !u!208 &342307405776519251
 NavMeshObstacle:
   m_ObjectHideFlags: 0
