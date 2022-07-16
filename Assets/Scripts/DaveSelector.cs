@@ -28,9 +28,19 @@ public class DaveSelector : MonoBehaviour
                     selectedDave = d;
                     d.highlight();
                 }
-                else if (selectedDave && hit.transform.TryGetComponent(out Station station)) //If we already have a selected dave move them to the new position
+                //If we already have a selected dave move them to the new position
+                else if (selectedDave && hit.transform.TryGetComponent(out Station station)) 
                 {
                     station.AssignDave(selectedDave);
+                    selectedDave.UnHighlight();
+                    selectedDave = null;
+                }
+
+                //unselect if nothing clicked
+                else if(selectedDave)
+                {
+                    selectedDave.UnHighlight();
+                    selectedDave = null;
                 }
             }
         }

@@ -5,12 +5,15 @@ using UnityEngine;
 public class BodyManager : MonoBehaviour
 {
     #region Variables
+
     float InterestBar_Cur;
     const int INTERESTBAR_MAX = 100;
     const int INTERESTBAR_MIN = 0;
 
-    Station[] Stations;
-    Dave[] Workers;
+    private Station[] Stations;
+    private Dave[] Workers;
+
+    public Vector2 StationBreakTime;
 
     #endregion
 
@@ -18,11 +21,23 @@ public class BodyManager : MonoBehaviour
 
     void Awake()
     {
+        Stations = GetComponentsInChildren<Station>();
+
         for (int i = 0; i < Stations.Length; i++)
         {
-            Stations[i-1].OnDamage += Damage;
+            Stations[i].OnDamage += Damage;
         }
-        
+
+        StartCoroutine(ChaosLoop());
+    }
+
+    IEnumerator ChaosLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(StationBreakTime.x, StationBreakTime.y));
+            BreakStation();
+        }
     }
 
 
@@ -32,12 +47,10 @@ public class BodyManager : MonoBehaviour
 
         //NEED CASE FOR <0
         return InterestBar_Cur = ib_cur > INTERESTBAR_MAX ? INTERESTBAR_MAX : ib_cur += amount;
-
     }
 
     void Damage()
     {
-
         //Call when the station break event is triggered
         InterestBar_Cur -= 5f; //Need to determine the damage per tick
     }
@@ -46,22 +59,23 @@ public class BodyManager : MonoBehaviour
     {
         //Breaks station that's not already broken, after timer has elapsed
         List<Station> workingStations = new List<Station>();
+
         //filter station array for stations that are not broken
-        for(int i = 0; i < Stations.Length; i++)
+        for (int i = 0; i < Stations.Length; i++)
         {
-            if(Stations[i].Status == Station.eStatus.Idle)
+            if (Stations[i].Status == Station.eStatus.Idle && !Stations[i].HasDave())
             {
                 workingStations.Add(Stations[i]);
             }
         }
-        //randomly select a station to break
-        var stationToBreak = workingStations[Random.Range(0, workingStations.Count)];
-        stationToBreak.SetBroken();
 
-
-
+        //randomly select a station to break if there's a valid station to break
+        if (workingStations.Count > 0)
+        {
+            var stationToBreak = workingStations[Random.Range(0, workingStations.Count)];
+            stationToBreak.SetBroken();
+        }
     }
 
     #endregion
 }
-
