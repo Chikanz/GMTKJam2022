@@ -18,6 +18,7 @@ public class Station : MonoBehaviour
     
     public delegate void DamageDelegate();
     public DamageDelegate OnDamage; //Called when station elapses time to fix
+    public DamageDelegate OnFixed; //Called when station is fixed
 
     //how much time the station can be broken before damage occurs
     public int TimeToDamage = 10;
@@ -51,6 +52,7 @@ public class Station : MonoBehaviour
         Status = eStatus.Idle;
         progress = 0;
         GetComponentInChildren<Light>().enabled = false;
+        OnFixed?.Invoke();
         Debug.Log("Station fixed");
     }
 

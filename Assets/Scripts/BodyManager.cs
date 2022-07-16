@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BodyManager : MonoBehaviour
 {
     #region Variables
-
-    float InterestBar_Cur;
-    const int INTERESTBAR_MAX = 100;
-    const int INTERESTBAR_MIN = 0;
-
+    
     private Station[] Stations;
     private Dave[] Workers;
 
     public Vector2 StationBreakTime;
+
+    public int InterestPoints;
+    public int InterestPointsMax = 100;
+    public int StationBreakDamage = 10;
+    
+    public Slider InterestBarSlider;
 
     #endregion
 
@@ -28,31 +31,43 @@ public class BodyManager : MonoBehaviour
             Stations[i].OnDamage += Damage;
         }
 
+        InterestBarSlider.value = 1;
+
         StartCoroutine(ChaosLoop());
     }
 
     IEnumerator ChaosLoop()
     {
+        InterestPoints = InterestPointsMax;
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(StationBreakTime.x, StationBreakTime.y));
             BreakStation();
         }
     }
-
-
-    float Interest_Change(float amount)
+    
+    void Interest_Change(int delta)
     {
-        var ib_cur = InterestBar_Cur;
-
-        //NEED CASE FOR <0
-        return InterestBar_Cur = ib_cur > INTERESTBAR_MAX ? INTERESTBAR_MAX : ib_cur += amount;
+        if(InterestPoints + delta > InterestPointsMax)
+        {
+            InterestPoints = InterestPointsMax;
+        }
+        else if(InterestPoints + delta < 0)
+        {
+            InterestPoints = 0;
+        }
+        else
+        {
+            InterestPoints += delta;
+        }
+        
+        InterestBarSlider.value = ( (float)InterestPoints / InterestPointsMax);
     }
 
+    //Called when the station break event is triggered
     void Damage()
     {
-        //Call when the station break event is triggered
-        InterestBar_Cur -= 5f; //Need to determine the damage per tick
+        Interest_Change(-StationBreakDamage);
     }
 
     void BreakStation()
@@ -75,6 +90,12 @@ public class BodyManager : MonoBehaviour
             var stationToBreak = workingStations[Random.Range(0, workingStations.Count)];
             stationToBreak.SetBroken();
         }
+    }
+
+    public void SpawnFire()
+    {
+        //Choose a random point on the navmesh
+        
     }
 
     #endregion
