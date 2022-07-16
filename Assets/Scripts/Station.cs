@@ -16,9 +16,11 @@ public class Station : MonoBehaviour
     public Transform davePoint;
     private Dave myDave;
     
-    public delegate void DamageDelegate();
+    public delegate void DamageDelegate(int damage);
     public DamageDelegate OnDamage; //Called when station elapses time to fix
-    public DamageDelegate OnFixed; //Called when station is fixed
+    
+    public delegate void RepairDelegate();
+    public RepairDelegate OnFixed; //Called when station is fixed
 
     //how much time the station can be broken before damage occurs
     public int TimeToDamage = 10;
@@ -28,12 +30,17 @@ public class Station : MonoBehaviour
     public int TimeToFix = 3;
     private float progress;
     
-    public Slider progressBar; 
+    public Slider progressBar;
+
+    private Light light;
+    
+    [Tooltip("The amount of damage this does when broken")]
+    [SerializeField] private int InterestDamage = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        light = GetComponentInChildren<Light>();
     }
 
     //call this when the station needs to be fucked up
@@ -43,7 +50,7 @@ public class Station : MonoBehaviour
         Status = eStatus.Broken;
         damageTimer = TimeToDamage;
         progress = 0;
-        GetComponentInChildren<Light>().enabled = true;
+        if(light) light.enabled = true;
         Debug.Log("Station broken");
     }
     
@@ -51,7 +58,7 @@ public class Station : MonoBehaviour
     {
         Status = eStatus.Idle;
         progress = 0;
-        GetComponentInChildren<Light>().enabled = false;
+        if(light) light.enabled = false;
         OnFixed?.Invoke();
         Debug.Log("Station fixed");
     }
@@ -90,7 +97,7 @@ public class Station : MonoBehaviour
             if(damageTimer > 0) damageTimer -= Time.deltaTime;
             else if (damageTimer < 0)
             {
-                OnDamage?.Invoke();
+                OnDamage?.Invoke(InterestDamage);
                 Debug.Log("Station damaged!");
                 damageTimer = TimeToDamage;
             }
@@ -99,7 +106,8 @@ public class Station : MonoBehaviour
         //Check if dave is fixing the station by checking distance
         if (myDave != null)
         {
-            if (Vector3.Distance(myDave.transform.position, davePoint.position) < 1)
+            Debug.Log(Vector3.Distance(myDave.transform.position, davePoint.position));
+            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= 1)
             {
                 progress += Time.deltaTime;
             }
