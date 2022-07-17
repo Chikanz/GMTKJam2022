@@ -29,29 +29,29 @@ public class StatusCreator : MonoBehaviour
         Slow, //Worker is slowed for a bit
         Distracted, //Worker wonders off to a random point 
         Burn, //Something lights on fire
-        AllDrunk, //All workers start with Drunk
-        AllSlow, //All workers are slow during this date
-
-        ///Outside Effects
-        Insult, //?
-        Awkward, //?
-        Cringe, //All workers pause breifly to cringe
-        Laugh, //?
-        Tired, //Stations take longer to fix for a bit
-
-        ///Daytime effects
-        Stinky, //Lose a worker during this date (they're in shower)
-        ReallyTired, //All Stations take longer to fix during this date
-
-        ///Personality effects
-        MoreTired, //Tired occurs more often
-        MoreBored, //Distracted occurs more often
-        MoreBurn, //Burn occurs more often
-        MoreBrain, //Brain station breaks more frequently
-        MoreLungs, //Lungs station breaks more frequently
-        MoreHeart, //Heart station breaks more frequently
-        MorePiss, //Bladder? station breaks more frequently
-        MoreHands //Hands station breaks more frequently
+        // AllDrunk, //All workers start with Drunk
+        // AllSlow, //All workers are slow during this date
+        //
+        // ///Outside Effects
+        // Insult, //?
+        // Awkward, //?
+        // Cringe, //All workers pause breifly to cringe
+        // Laugh, //?
+        // Tired, //Stations take longer to fix for a bit
+        //
+        // ///Daytime effects
+        // Stinky, //Lose a worker during this date (they're in shower)
+        // ReallyTired, //All Stations take longer to fix during this date
+        //
+        // ///Personality effects
+        // MoreTired, //Tired occurs more often
+        // MoreBored, //Distracted occurs more often
+        // MoreBurn, //Burn occurs more often
+        // MoreBrain, //Brain station breaks more frequently
+        // MoreLungs, //Lungs station breaks more frequently
+        // MoreHeart, //Heart station breaks more frequently
+        // MorePiss, //Bladder? station breaks more frequently
+        // MoreHands //Hands station breaks more frequently
     }
     
     
@@ -73,40 +73,40 @@ public class StatusCreator : MonoBehaviour
             case eStatusEffect.Burn:
                 SpawnFire();
                 break;
-            case eStatusEffect.AllDrunk:
-                break;
-            case eStatusEffect.AllSlow:
-                break;
-            case eStatusEffect.Insult:
-                break;
-            case eStatusEffect.Awkward:
-                break;
-            case eStatusEffect.Cringe:
-                break;
-            case eStatusEffect.Laugh:
-                break;
-            case eStatusEffect.Tired:
-                break;
-            case eStatusEffect.Stinky:
-                break;
-            case eStatusEffect.ReallyTired:
-                break;
-            case eStatusEffect.MoreTired:
-                break;
-            case eStatusEffect.MoreBored:
-                break;
-            case eStatusEffect.MoreBurn:
-                break;
-            case eStatusEffect.MoreBrain:
-                break;
-            case eStatusEffect.MoreLungs:
-                break;
-            case eStatusEffect.MoreHeart:
-                break;
-            case eStatusEffect.MorePiss:
-                break;
-            case eStatusEffect.MoreHands:
-                break;
+            // case eStatusEffect.AllDrunk:
+            //     break;
+            // case eStatusEffect.AllSlow:
+            //     break;
+            // case eStatusEffect.Insult:
+            //     break;
+            // case eStatusEffect.Awkward:
+            //     break;
+            // case eStatusEffect.Cringe:
+            //     break;
+            // case eStatusEffect.Laugh:
+            //     break;
+            // case eStatusEffect.Tired:
+            //     break;
+            // case eStatusEffect.Stinky:
+            //     break;
+            // case eStatusEffect.ReallyTired:
+            //     break;
+            // case eStatusEffect.MoreTired:
+            //     break;
+            // case eStatusEffect.MoreBored:
+            //     break;
+            // case eStatusEffect.MoreBurn:
+            //     break;
+            // case eStatusEffect.MoreBrain:
+            //     break;
+            // case eStatusEffect.MoreLungs:
+            //     break;
+            // case eStatusEffect.MoreHeart:
+            //     break;
+            // case eStatusEffect.MorePiss:
+            //     break;
+            // case eStatusEffect.MoreHands:
+            //     break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(status), status, null);
         }
@@ -119,6 +119,9 @@ public class StatusCreator : MonoBehaviour
 
     private void Distracted(Dave d)
     {
+        d.myStation.AssignDave(null);
+        d.SetStation(null);
+        
         d.SetDestination(Util.GetRandomNavmeshPoint());
     }
 

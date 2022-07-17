@@ -863,7 +863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.45}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5637817770985161628
@@ -1770,7 +1770,15 @@ MonoBehaviour:
   TimeToDamage: 5
   TimeToFix: 3
   progressBar: {fileID: 6961624204551959247}
+  AlertObj: {fileID: 0}
   InterestDamage: 5
+  LightPulseCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  distanceToFix: 2.5
 --- !u!208 &342307405776519251
 NavMeshObstacle:
   m_ObjectHideFlags: 0

@@ -74,6 +74,7 @@ public class Dave : MonoBehaviour
         
         pickup.transform.SetParent(BurgerAnchor, false);
         pickup.transform.localPosition = Vector3.zero;
+        pickup.transform.localScale = Vector3.one;
     }
     
     public void GetOffTheBeers()

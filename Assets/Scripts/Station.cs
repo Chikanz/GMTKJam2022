@@ -32,12 +32,14 @@ public class Station : MonoBehaviour
     
     public Slider progressBar;
 
+    public GameObject AlertObj;
     private Light light;
     
     [Tooltip("The amount of damage this does when broken")]
     [SerializeField] private int InterestDamage = 10;
 
     public AnimationCurve LightPulseCurve;
+    [SerializeField] private float distanceToFix = 1.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,8 @@ public class Station : MonoBehaviour
         damageTimer = TimeToDamage;
         progress = 0;
         if(light) light.enabled = true;
+        if(AlertObj) AlertObj.SetActive(true);
+        
         Debug.Log("Station broken");
     }
 
@@ -62,6 +66,7 @@ public class Station : MonoBehaviour
         Status = eStatus.Idle;
         progress = 0;
         if(light) light.enabled = false;
+        if(AlertObj) AlertObj.SetActive(false);
         OnFixed?.Invoke();
         Debug.Log("Station fixed");
     }
@@ -109,7 +114,7 @@ public class Station : MonoBehaviour
         //Check if dave is fixing the station by checking distance
         if (myDave != null)
         {
-            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= 1.5f)
+            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= distanceToFix)
             {
                 FixingStation();
             }
@@ -122,7 +127,8 @@ public class Station : MonoBehaviour
         }
         
         //Update the progress bar
-        progressBar.gameObject.SetActive(Status == eStatus.Broken && progress > 0);
+        if(progressBar) 
+            progressBar.gameObject.SetActive(Status == eStatus.Broken && progress > 0);
         if(Status == eStatus.Broken && progress > 0)
         {
             progressBar.value = progress / TimeToFix;
@@ -130,6 +136,7 @@ public class Station : MonoBehaviour
         
         //Pulse light
         if (light && light.enabled) light.intensity = LightPulseCurve.Evaluate(Time.time % 1) * 5;
+        
 
     }
 

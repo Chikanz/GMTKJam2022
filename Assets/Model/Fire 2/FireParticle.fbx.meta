@@ -1,39 +1,9 @@
 fileFormatVersion: 2
-guid: 30ca37a19e36bc64ab0bd43b4c31f19e
+guid: 70f929ade67f033498d8da6d21946ed3
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: 795548
-    second: {fileID: 2100000, guid: b0705a40c4a1d4746a1a36a0284101f9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: 8BC34A
-    second: {fileID: 2100000, guid: b55edc3c58a998548817d1bec4098125, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DD9944
-    second: {fileID: 2100000, guid: 1adc2c3ec7c15e242869aacdbf97ff43, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: F44336
-    second: {fileID: 2100000, guid: 08379748488a62a4ab386744a5712d96, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FF5722
-    second: {fileID: 2100000, guid: 4d1793c719e823344a5746e26eafaea0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FF9800
-    second: {fileID: 2100000, guid: 239ac6c0216834544ac13e626d919cbd, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -65,7 +35,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -118,7 +88,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.1
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
