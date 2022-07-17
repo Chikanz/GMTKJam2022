@@ -14,7 +14,7 @@ public class Station : MonoBehaviour
     public eStatus Status { get; private set; }
     
     public Transform davePoint;
-    private Dave myDave;
+    protected Dave myDave;
     
     public delegate void DamageDelegate(int damage);
     public DamageDelegate OnDamage; //Called when station elapses time to fix
@@ -37,6 +37,8 @@ public class Station : MonoBehaviour
     [Tooltip("The amount of damage this does when broken")]
     [SerializeField] private int InterestDamage = 10;
 
+    public AnimationCurve LightPulseCurve;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +55,8 @@ public class Station : MonoBehaviour
         if(light) light.enabled = true;
         Debug.Log("Station broken");
     }
-    
+
+  
     public void FixStation()
     {
         Status = eStatus.Idle;
@@ -106,9 +109,9 @@ public class Station : MonoBehaviour
         //Check if dave is fixing the station by checking distance
         if (myDave != null)
         {
-            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= 2)
+            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= 1.5f)
             {
-                progress += Time.deltaTime;
+                FixingStation();
             }
         }
         
@@ -124,6 +127,15 @@ public class Station : MonoBehaviour
         {
             progressBar.value = progress / TimeToFix;
         }
+        
+        //Pulse light
+        if (light && light.enabled) light.intensity = LightPulseCurve.Evaluate(Time.time % 1) * 5;
 
+    }
+
+    //called when the dave is close to station
+    protected virtual void FixingStation()
+    {
+        progress += Time.deltaTime;
     }
 }

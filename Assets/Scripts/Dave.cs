@@ -8,12 +8,16 @@ public class Dave : MonoBehaviour
     private NavMeshAgent agent;
     public Station myStation { get; private set; }
     public float DrunkTime = 5f;
+
+    public Transform BurgerAnchor;
     
     public enum State
     {
        Working,
        Drunk,
     }
+    
+    public Pickup pickup { get; private set; }
     
     public State state {get ; private set;} = State.Working;
     
@@ -61,6 +65,15 @@ public class Dave : MonoBehaviour
         agent.SetDestination(transform.position);
         //play drunk anim
         Invoke(nameof(GetOffTheBeers), DrunkTime);
+    }
+    
+    public void SetPickup(Pickup pickup)
+    {
+        this.pickup = pickup;
+        if(!pickup) return;
+        
+        pickup.transform.SetParent(BurgerAnchor, false);
+        pickup.transform.localPosition = Vector3.zero;
     }
     
     public void GetOffTheBeers()

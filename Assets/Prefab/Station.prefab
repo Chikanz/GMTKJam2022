@@ -195,9 +195,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   davePoint: {fileID: 7143904093871312118}
-  TimeToDamage: 7
+  TimeToDamage: 3
   TimeToFix: 3
   progressBar: {fileID: 5450862948183871787}
+  InterestDamage: 5
+  LightPulseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6.0369997
+      outSlope: 6.0369997
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.072358586
+    - serializedVersion: 3
+      time: 0.50042033
+      value: 1.0023389
+      inSlope: 0.026177298
+      outSlope: 0.026177298
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.26890704
+    - serializedVersion: 3
+      time: 0.9973755
+      value: 0.004486084
+      inSlope: -5.931745
+      outSlope: -5.931745
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13456406
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1663994755922952973
 GameObject:
   m_ObjectHideFlags: 0

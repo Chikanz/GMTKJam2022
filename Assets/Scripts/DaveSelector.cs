@@ -35,6 +35,14 @@ public class DaveSelector : MonoBehaviour
                     selectedDave.UnHighlight();
                     selectedDave = null;
                 }
+                
+                //Go to pickup
+                else if (selectedDave && hit.transform.TryGetComponent(out Pickup pickup))
+                {
+                    selectedDave.SetDestination(pickup.transform.position);
+                    selectedDave.UnHighlight();
+                    selectedDave = null;
+                }
 
                 //unselect if nothing clicked
                 else if(selectedDave)

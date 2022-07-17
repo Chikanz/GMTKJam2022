@@ -34,6 +34,7 @@ public class BodyManager : MonoBehaviour
         InterestPoints = InterestPointsMax;
         
         StartCoroutine(ChaosLoop());
+        StartCoroutine(InterestDecay());
     }
 
     IEnumerator ChaosLoop()
@@ -44,8 +45,17 @@ public class BodyManager : MonoBehaviour
             BreakStation();
         }
     }
+    
+    IEnumerator InterestDecay()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            Interest_Change(-1);
+        }
+    }
 
-    void Interest_Change(int delta)
+    public void Interest_Change(int delta)
     {
         if (InterestPoints + delta > InterestPointsMax)
         {
