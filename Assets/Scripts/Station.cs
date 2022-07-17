@@ -106,8 +106,7 @@ public class Station : MonoBehaviour
         //Check if dave is fixing the station by checking distance
         if (myDave != null)
         {
-            Debug.Log(Vector3.Distance(myDave.transform.position, davePoint.position));
-            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= 1)
+            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= 2)
             {
                 progress += Time.deltaTime;
             }
