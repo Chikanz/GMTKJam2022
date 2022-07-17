@@ -15,6 +15,7 @@ public class ButtonScript : MonoBehaviour
     public void PlayGame() 
     {
         SceneManager.LoadScene("WorkerTest");
+        Debug.Log("Error");
     }
 
     public void ExitGame()
