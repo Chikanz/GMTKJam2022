@@ -17,7 +17,7 @@ public class OutsideEffectBehaviour : MonoBehaviour
         //calculate the Angle forward needs to face
         var rot = Quaternion.LookRotation(Vector3.back, Vector3.up);
         //the -90f might need to change in future
-        transform.rotation = Quaternion.Euler(new Vector3(0, 90f, -(rot.z - Target.transform.position.z)));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 90f, -(rot.z - Target.transform.eulerAngles.z)));
     }
 
     // Update is called once per frame
