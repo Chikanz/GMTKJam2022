@@ -15,7 +15,7 @@ public class StatusManager : MonoBehaviour
     {
         // "Tipsy", //Drunk
         "Tired", //Slow
-        "Bored", //Distracted
+        // "Bored", //Distracted
         "Heart burn", //Burn
         "CRINGE", //Cringe
     };
