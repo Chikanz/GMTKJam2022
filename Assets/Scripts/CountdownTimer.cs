@@ -12,18 +12,23 @@ public class CountdownTimer : MonoBehaviour
     #region Variables
     float timer = 0f;
     int timerLength;
-    [SerializeField]bool roundStart = false;
+    public bool roundStart = false;
     //[SerializeField]DateManager date;
     TextMeshProUGUI displayText;
+    [SerializeField] ManagerScript manager;
     #endregion
 
     private void Awake()
     {
         displayText = GetComponent<TextMeshProUGUI>();
 
+    }
 
+    public void OnEnable()
+    {
         timerLength = 30;//date.dateLength;
         timer = timerLength;
+        roundStart = true;
     }
 
     private void Update()
@@ -48,7 +53,7 @@ public class CountdownTimer : MonoBehaviour
         }
         else
         {
-            roundStart = false;
+            manager.TimerEnd();
         }
     }
 
