@@ -41,6 +41,9 @@ public class Station : MonoBehaviour
     public AnimationCurve LightPulseCurve;
     [SerializeField] private float distanceToFix = 1.5f;
 
+    
+
+
     // Start is called before the first frame update
     void Start()
     {

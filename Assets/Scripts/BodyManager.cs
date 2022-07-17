@@ -18,6 +18,7 @@ public class BodyManager : MonoBehaviour
     public Slider InterestBarSlider;
 
     public int maxBroken = 5;
+    [SerializeField] ManagerScript manager;
 
     #endregion
 
@@ -73,6 +74,11 @@ public class BodyManager : MonoBehaviour
         }
 
         InterestBarSlider.value = ((float)InterestPoints / InterestPointsMax);
+
+        if(InterestBarSlider.value <= 0f)
+        {
+            manager.MeterEmpty();
+        }
     }
 
     //Called when the station break event is triggered
