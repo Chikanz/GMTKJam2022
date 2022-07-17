@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //Makes status effects happen
 public class StatusCreator : MonoBehaviour
@@ -10,6 +11,8 @@ public class StatusCreator : MonoBehaviour
     [SerializeField] private GameObject FireObj;
 
     public BodyManager BM;
+
+    private float OGSpeed = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -21,11 +24,13 @@ public class StatusCreator : MonoBehaviour
         foreach (GameObject dave in daveObjs)
             daves.Add(dave.GetComponent<Dave>());
 
+        OGSpeed = daves[0].GetComponent<NavMeshAgent>().speed;
+
     }
 
     public enum eStatusEffect
     {
-        Drunk, //Worker is incapacited for a bit 
+        // Drunk, //Worker is incapacited for a bit 
         Slow, //Worker is slowed for a bit
         Distracted, //Worker wonders off to a random point 
         Burn, //Something lights on fire
@@ -40,11 +45,12 @@ public class StatusCreator : MonoBehaviour
 
         switch (status)
         {
-            case eStatusEffect.Drunk: //+ Tipsy
-                MakeDrunk(dave);
-                break;
+            // case eStatusEffect.Drunk: //+ Tipsy
+            //     MakeDrunk(dave);
+            //     break;
             
             case eStatusEffect.Slow: //+ Tired
+                StartCoroutine(Slow(OGSpeed/2, 5));
                 break;
             
             case eStatusEffect.Distracted: //+ Boring story
@@ -56,6 +62,7 @@ public class StatusCreator : MonoBehaviour
                 break;
             
             case eStatusEffect.Cringe: //CRINGE
+                StartCoroutine(Slow(0, 2));
                 break;
             
             default:
@@ -66,6 +73,20 @@ public class StatusCreator : MonoBehaviour
     private void MakeDrunk(Dave d)
     {
         d.GetOnTheBeers();
+    }
+
+    private IEnumerator Slow(float slowSpeed, float slowTime)
+    {
+        foreach (Dave dave in daves)
+        {
+            dave.GetComponent<NavMeshAgent>().speed = slowSpeed;
+        }
+        yield return new WaitForSeconds(slowTime);
+        
+        foreach (Dave dave in daves)
+        {
+            dave.GetComponent<NavMeshAgent>().speed = OGSpeed;
+        }
     }
 
     private void Distracted(Dave d)

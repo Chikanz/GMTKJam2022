@@ -17,7 +17,7 @@ public class BurgerSpawner : Station
     {
     }
 
-    protected override void FixingStation()
+    protected override void FixingStation(Dave d)
     {
             //Create another borger
             borger = Instantiate(borger, transform.position, Quaternion.identity) as GameObject;

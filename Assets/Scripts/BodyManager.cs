@@ -35,8 +35,8 @@ public class BodyManager : MonoBehaviour
         InterestBarSlider.value = 1;
         InterestPoints = InterestPointsMax;
         
-        StartCoroutine(ChaosLoop());
-        StartCoroutine(InterestDecay());
+        // StartCoroutine(ChaosLoop());
+        // StartCoroutine(InterestDecay());
     }
 
     IEnumerator ChaosLoop()
@@ -94,7 +94,7 @@ public class BodyManager : MonoBehaviour
             {
                 brokenStations++;
             }
-            else
+            else if(!Stations[i].isStationed) //dont select ones already stationed
             {
                 workingStations.Add(Stations[i]);
             }

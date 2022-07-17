@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
+using Debug = UnityEngine.Debug;
 
 public class Dave : MonoBehaviour
 {
@@ -10,7 +12,12 @@ public class Dave : MonoBehaviour
     public float DrunkTime = 5f;
 
     public Transform BurgerAnchor;
-    
+    private List<Material> materials = new List<Material>();
+    private List<Color> DefaultCols = new List<Color>();
+
+    public Animator AC;
+    private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+
     public enum State
     {
        Working,
@@ -25,6 +32,15 @@ public class Dave : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        var MRS = GetComponentsInChildren<SkinnedMeshRenderer>();
+        for (int i = 0; i < MRS.Length; i++)
+        {
+            for (int j = 0; j < MRS[i].materials.Length; j++)
+            {
+                materials.Add(MRS[i].materials[j]);
+                DefaultCols.Add(MRS[i].materials[j].color);
+            }
+        }
     }
 
     public void SetDestination(Vector3 position)
@@ -43,19 +59,26 @@ public class Dave : MonoBehaviour
 
     public void UnHighlight()
     {
-        GetComponent<MeshRenderer>().material.color = Color.white;
+        //Return all materials to default color
+        for (int i = 0; i < materials.Count; i++)
+        {
+            materials[i].color = DefaultCols[i];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        AC.SetBool(IsRunning, agent.velocity.sqrMagnitude > 0.1f);
     }
 
     public void highlight()
     {
         if (state == State.Drunk) return;
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        foreach (var mat in materials)
+        {
+            mat.color = Color.red;
+        }
     }
 
     //Make this dave lit af
@@ -65,7 +88,6 @@ public class Dave : MonoBehaviour
         if(myStation) myStation.AssignDave(null);
         agent.SetDestination(transform.position);
         //play drunk anim
-        GetComponent<MeshRenderer>().material.color = Color.yellow;
         Invoke(nameof(GetOffTheBeers), DrunkTime);
     }
     

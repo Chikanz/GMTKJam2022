@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +10,19 @@ public class Station : MonoBehaviour
     {
         Idle,
         Broken,
-    } 
-    
+    }
+
     public eStatus Status { get; private set; }
-    
+
     public Transform davePoint;
     protected Dave myDave;
-    
+
     public delegate void DamageDelegate(int damage);
+
     public DamageDelegate OnDamage; //Called when station elapses time to fix
-    
+
     public delegate void RepairDelegate();
+
     public RepairDelegate OnFixed; //Called when station is fixed
 
     //how much time the station can be broken before damage occurs
@@ -29,22 +32,47 @@ public class Station : MonoBehaviour
     //how long it takes to fix this sation
     public int TimeToFix = 3;
     private float progress;
-    
+
     public Slider progressBar;
 
     public GameObject AlertObj;
     private Light light;
-    
-    [Tooltip("The amount of damage this does when broken")]
-    [SerializeField] private int InterestDamage = 10;
+
+    [Tooltip("The amount of damage this does when broken")] [SerializeField]
+    private int InterestDamage = 10;
 
     public AnimationCurve LightPulseCurve;
     [SerializeField] private float distanceToFix = 1.5f;
+
+    private static List<Dave> daves = new List<Dave>();
+
+    public bool isStationed { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         light = GetComponentInChildren<Light>();
+
+        //Get all daves in the scene
+        if (daves.Count == 0)
+        {
+            var daveObjs = GameObject.FindGameObjectsWithTag("Dave");
+            foreach (var obj in daveObjs)
+            {
+                var dave = obj.GetComponent<Dave>();
+                if (dave != null)
+                {
+                    daves.Add(dave);
+                }
+            }
+
+            Debug.Log(daves.Count);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        daves.Clear();
     }
 
     //call this when the station needs to be fucked up
@@ -54,19 +82,19 @@ public class Station : MonoBehaviour
         Status = eStatus.Broken;
         damageTimer = TimeToDamage;
         progress = 0;
-        if(light) light.enabled = true;
-        if(AlertObj) AlertObj.SetActive(true);
-        
+        if (light) light.enabled = true;
+        if (AlertObj) AlertObj.SetActive(true);
+
         Debug.Log("Station broken");
     }
 
-  
+
     public void FixStation()
     {
         Status = eStatus.Idle;
         progress = 0;
-        if(light) light.enabled = false;
-        if(AlertObj) AlertObj.SetActive(false);
+        if (light) light.enabled = false;
+        if (AlertObj) AlertObj.SetActive(false);
         OnFixed?.Invoke();
         Debug.Log("Station fixed");
     }
@@ -86,7 +114,7 @@ public class Station : MonoBehaviour
         }
 
         // if(myDave) return; //station already has a dave (doesn't work lmao)
-        
+
         myDave = d;
 
         if (d)
@@ -99,10 +127,12 @@ public class Station : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isStationed = false;
+
         //Keep track of how long the station has been broken for
-        if (Status == eStatus.Broken && progress == 0) 
+        if (Status == eStatus.Broken && progress == 0)
         {
-            if(damageTimer > 0) damageTimer -= Time.deltaTime;
+            if (damageTimer > 0) damageTimer -= Time.deltaTime;
             else if (damageTimer < 0)
             {
                 OnDamage?.Invoke(InterestDamage);
@@ -110,38 +140,41 @@ public class Station : MonoBehaviour
                 damageTimer = TimeToDamage;
             }
         }
-        
+
         //Check if dave is fixing the station by checking distance
-        if (myDave != null)
+        for (int i = 0; i < daves.Count; i++)
         {
-            if (Vector3.Distance(myDave.transform.position, davePoint.position) <= distanceToFix)
+            var dave = daves[i];
             {
-                FixingStation();
+                var dist = Vector3.Distance(dave.transform.position, davePoint.position);
+                if (dist <= distanceToFix)
+                {
+                    isStationed = true;
+                    FixingStation(dave);
+                }
             }
         }
-        
+
         //Make the station fixed 
-        if(Status == eStatus.Broken && progress > TimeToFix)
+        if (Status == eStatus.Broken && progress > TimeToFix)
         {
             FixStation();
         }
-        
+
         //Update the progress bar
-        if(progressBar) 
+        if (progressBar)
             progressBar.gameObject.SetActive(Status == eStatus.Broken && progress > 0);
-        if(Status == eStatus.Broken && progress > 0)
+        if (Status == eStatus.Broken && progress > 0)
         {
             progressBar.value = progress / TimeToFix;
         }
-        
+
         //Pulse light
         if (light && light.enabled) light.intensity = LightPulseCurve.Evaluate(Time.time % 1) * 5;
-        
-
     }
 
     //called when the dave is close to station
-    protected virtual void FixingStation()
+    protected virtual void FixingStation(Dave d)
     {
         progress += Time.deltaTime;
     }

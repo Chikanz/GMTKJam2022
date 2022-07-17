@@ -19,8 +19,9 @@ public class JokeStation : Station
         JokeText.text = "";
     }
 
-    protected override void FixingStation()
+    protected override void FixingStation(Dave d)
     {
+        var myDave = d;
         if (myDave.pickup && myDave.pickup.Type == Pickup.ePickupType.Energy)
         {
             Destroy(myDave.pickup.gameObject);

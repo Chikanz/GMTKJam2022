@@ -8,8 +8,9 @@ public class PickupStation : Station
     public bool energyStation = false;
     
     [FormerlySerializedAs("EnergyObject")] public GameObject PickupObj;
-    protected override void FixingStation()
+    protected override void FixingStation(Dave d)
     {
+        var myDave = d;
         if ((myDave.pickup && myDave.pickup.Type == Pickup.ePickupType.Burger) || (!energyStation && !myDave.pickup))
         {
             if(myDave.pickup) Destroy(myDave.pickup.gameObject);

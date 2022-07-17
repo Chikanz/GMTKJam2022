@@ -1,52 +1,19 @@
 fileFormatVersion: 2
-guid: 349fa285cf109d4488b05f3a723959be
+guid: c8f3daed0f527d94eb3cf598167c84d3
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable:
-  - first:
-      74: 1827226128182048838
-    second: Take 001
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_matflat_nose
-    second: {fileID: 2100000, guid: bddd26abbd68c9a439a89dc78f61ba95, type: 2}
+      name: F44336
+    second: {fileID: 2100000, guid: 2af9b672feaf2e74bbf221d754388e0d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_matflat_white4
-    second: {fileID: 2100000, guid: 52f26a74e92d63a44b0cd69bee224a9d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: matflat_black
-    second: {fileID: 2100000, guid: b301869acf7cb06489421dc5ababe7a5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: matflat_boots_shirt
-    second: {fileID: 2100000, guid: bbb1f86b217e50f47893d57307a46409, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: matflat_glassinner
-    second: {fileID: 2100000, guid: 7dd955530f3098548be02d0ee2232228, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: matflat_gloves
-    second: {fileID: 2100000, guid: 56fbfdfc47f80184c96f787beb12599c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: matflat_trousers2
-    second: {fileID: 2100000, guid: 3901e01514564ed4ea0d7593f2ae5a42, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: surfaceShader11
-    second: {fileID: 2100000, guid: 26455d627d96a1a4d9dd21bfb0efc09e, type: 2}
+      name: FFFFFF
+    second: {fileID: 2100000, guid: 5796b75c288e42a43a004a4c4d08bd07, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -78,7 +45,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -131,7 +98,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 100
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

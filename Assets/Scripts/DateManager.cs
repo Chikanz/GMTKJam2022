@@ -47,14 +47,13 @@ public class DateManager : MonoBehaviour
     void FillJobsList()
     {
         jobsList[0] = new Profession(StatusCreator.eStatusEffect.Slow,"Personal Trainer");
-        jobsList[1] = new Profession(StatusCreator.eStatusEffect.Drunk, "DJ");
+        // jobsList[1] = new Profession(StatusCreator.eStatusEffect.Drunk, "DJ");
         // jobsList[2] = new Profession(StatusCreator.eStatusEffect.MoreTired, "Dancer");
         // jobsList[3] = new Profession(StatusCreator.eStatusEffect.MoreBrain, "Therapist");
         // jobsList[4] = new Profession(StatusCreator.eStatusEffect.MorePiss, "Chef");
         // jobsList[5] = new Profession(StatusCreator.eStatusEffect.MoreBored, "Scientist");
 
     }
-
 }
 
 struct DateProfile
