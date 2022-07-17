@@ -7,6 +7,15 @@ public class Dave : MonoBehaviour
 {
     private NavMeshAgent agent;
     public Station myStation { get; private set; }
+    public float DrunkTime = 5f;
+    
+    public enum State
+    {
+       Working,
+       Drunk,
+    }
+    
+    public State state {get ; private set;} = State.Working;
     
     // Start is called before the first frame update
     void Start()
@@ -16,6 +25,8 @@ public class Dave : MonoBehaviour
 
     public void SetDestination(Vector3 position)
     {
+        if(state == State.Drunk) return; // if drunk, don't move
+        
         if(myStation) myStation.AssignDave(null);
         agent.SetDestination(position);
         UnHighlight();
@@ -40,5 +51,20 @@ public class Dave : MonoBehaviour
     public void highlight()
     {
         GetComponent<MeshRenderer>().material.color = Color.red;
+    }
+
+    //Make this dave lit af
+    public void GetOnTheBeers()
+    {
+        state = State.Drunk;
+        if(myStation) myStation.AssignDave(null);
+        agent.SetDestination(transform.position);
+        //play drunk anim
+        Invoke(nameof(GetOffTheBeers), DrunkTime);
+    }
+    
+    public void GetOffTheBeers()
+    {
+        state = State.Working;
     }
 }

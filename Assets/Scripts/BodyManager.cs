@@ -14,10 +14,8 @@ public class BodyManager : MonoBehaviour
 
     public int InterestPoints { get; private set; }
     public int InterestPointsMax = 100;
-    public int StationBreakDamage = 10;
 
     public Slider InterestBarSlider;
-    [SerializeField] private GameObject FireObj;
 
     #endregion
 
@@ -35,9 +33,7 @@ public class BodyManager : MonoBehaviour
         InterestBarSlider.value = 1;
         InterestPoints = InterestPointsMax;
         
-        // StartCoroutine(ChaosLoop());
-
-        SpawnFire();
+        StartCoroutine(ChaosLoop());
     }
 
     IEnumerator ChaosLoop()
@@ -68,7 +64,7 @@ public class BodyManager : MonoBehaviour
     }
 
     //Called when the station break event is triggered
-    void Damage(int damage)
+    public void Damage(int damage)
     {
         Interest_Change(-damage);
     }
@@ -93,23 +89,6 @@ public class BodyManager : MonoBehaviour
             var stationToBreak = workingStations[Random.Range(0, workingStations.Count)];
             stationToBreak.SetBroken();
         }
-    }
-
-    public void SpawnFire()
-    {
-        //Choose a random point on the navmesh
-        Vector3 randomPoint = Util.GetRandomNavmeshPoint();
-
-        //Spawn a fire at that point
-        GameObject fire = Instantiate(FireObj, randomPoint, Quaternion.identity);
-        var station = fire.GetComponent<Station>();
-        station.SetBroken();
-        station.OnDamage += Damage;
-        station.OnFixed += () =>
-        {
-            station.OnDamage -= Damage;
-            Destroy(fire);
-        };
     }
 }
 
