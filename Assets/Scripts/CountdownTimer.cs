@@ -16,6 +16,8 @@ public class CountdownTimer : MonoBehaviour
     //[SerializeField]DateManager date;
     TextMeshProUGUI displayText;
     [SerializeField] ManagerScript manager;
+    [SerializeField] private int roundLength = 60;
+
     #endregion
 
     private void Awake()
@@ -26,7 +28,7 @@ public class CountdownTimer : MonoBehaviour
 
     public void OnEnable()
     {
-        timerLength = 30;//date.dateLength;
+        timerLength = roundLength;//date.dateLength;
         timer = timerLength;
         roundStart = true;
     }

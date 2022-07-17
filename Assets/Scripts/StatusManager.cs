@@ -13,7 +13,7 @@ public class StatusManager : MonoBehaviour
 
     private string[] StatusTexts = new[]
     {
-        "Tipsy", //Drunk
+        // "Tipsy", //Drunk
         "Tired", //Slow
         "Bored", //Distracted
         "Heart burn", //Burn

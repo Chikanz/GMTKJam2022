@@ -62,11 +62,11 @@ public class StatusCreator : MonoBehaviour
                 break;
             
             case eStatusEffect.Cringe: //CRINGE
-                StartCoroutine(Slow(0, 2));
+                StartCoroutine(Slow(OGSpeed/2, 5));
                 break;
             
-            default:
-                throw new ArgumentOutOfRangeException(nameof(status), status, null);
+            // default:
+            //     throw new ArgumentOutOfRangeException(nameof(status), status, null);
         }
     }
 

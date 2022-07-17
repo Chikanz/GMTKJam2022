@@ -44,12 +44,12 @@ public class Station : MonoBehaviour
     public AnimationCurve LightPulseCurve;
     [SerializeField] private float distanceToFix = 1.5f;
 
-    private static List<Dave> daves = new List<Dave>();
+    private List<Dave> daves = new List<Dave>();
 
     public bool isStationed { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         light = GetComponentInChildren<Light>();
 
@@ -65,14 +65,14 @@ public class Station : MonoBehaviour
                     daves.Add(dave);
                 }
             }
-
-            Debug.Log(daves.Count);
         }
+        
+        if(daves.Count == 0) Debug.LogError("SHIT IS FUCKED!!!");
     }
 
     private void OnDestroy()
     {
-        daves.Clear();
+        if(daves.Count > 0) daves.Clear();
     }
 
     //call this when the station needs to be fucked up

@@ -6,7 +6,37 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_matflat_nose
+    second: {fileID: 2100000, guid: 5cda79480886e0949882091988595fc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_matflat_white4
+    second: {fileID: 2100000, guid: 66d02a18b4e3d3a4ea68c08132dd3ac2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: matflat_black
+    second: {fileID: 2100000, guid: 68a2b25eac4f8a046aea86ba2cc9e2cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: matflat_boots_shirt
+    second: {fileID: 2100000, guid: a7c54efc7b5c73d4c8c006f2b6d5c65a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: matflat_glassinner
+    second: {fileID: 2100000, guid: caaf9c02b2bb4e94e8f8fcf3a835a3ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: matflat_gloves
+    second: {fileID: 2100000, guid: 90c27064362a86b4480ba79c188a4572, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

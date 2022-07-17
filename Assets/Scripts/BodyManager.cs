@@ -19,6 +19,7 @@ public class BodyManager : MonoBehaviour
 
     public int maxBroken = 5;
     [SerializeField] ManagerScript manager;
+    [SerializeField] private float InterestDecayTime = 1;
 
     #endregion
 
@@ -36,8 +37,8 @@ public class BodyManager : MonoBehaviour
         InterestBarSlider.value = 1;
         InterestPoints = InterestPointsMax;
         
-        // StartCoroutine(ChaosLoop());
-        // StartCoroutine(InterestDecay());
+        StartCoroutine(ChaosLoop());
+        StartCoroutine(InterestDecay());
     }
 
     IEnumerator ChaosLoop()
@@ -53,7 +54,7 @@ public class BodyManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(InterestDecayTime);
             Interest_Change(-1);
         }
     }
