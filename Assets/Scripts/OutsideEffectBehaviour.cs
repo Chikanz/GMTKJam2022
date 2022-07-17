@@ -6,8 +6,6 @@ public class OutsideEffectBehaviour : MonoBehaviour
 {
 
     #region Variables
-    
-    [SerializeField] GameObject Target;
     [SerializeField] float Speed;
     #endregion
 
@@ -15,15 +13,18 @@ public class OutsideEffectBehaviour : MonoBehaviour
     void Start()
     {
         //calculate the Angle forward needs to face
-        var rot = Quaternion.LookRotation(Vector3.back, Vector3.up);
+        // var rot = Quaternion.LookRotation(Vector3.back, Vector3.up);
         //the -90f might need to change in future
-        transform.rotation = Quaternion.Euler(new Vector3(0, 90f, -(rot.z - Target.transform.eulerAngles.z)));
+        // transform.rotation = Quaternion.Euler(new Vector3(0, 90f, -(rot.z - Target.transform.eulerAngles.z)));
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveTowards(Target.transform.position);
+        //move the object up
+        transform.position += Vector3.up * Speed * Time.deltaTime;
+
+        // MoveTowards(Target.transform.position);
         //apply status effect/change when this obj hits the target?
     }
 

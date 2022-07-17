@@ -17,6 +17,8 @@ public class BodyManager : MonoBehaviour
 
     public Slider InterestBarSlider;
 
+    public int maxBroken = 5;
+
     #endregion
 
     #region Methods
@@ -83,15 +85,23 @@ public class BodyManager : MonoBehaviour
     {
         //Breaks station that's not already broken, after timer has elapsed
         List<Station> workingStations = new List<Station>();
-
-        //filter station array for stations that are not broken
+        
+        //Count how many staions are broken + filter station array for stations that are not broken
+        int brokenStations = 0;
         for (int i = 0; i < Stations.Length; i++)
         {
-            if (Stations[i].Status == Station.eStatus.Idle && !Stations[i].HasDave())
+            if (Stations[i].Status == Station.eStatus.Broken)
+            {
+                brokenStations++;
+            }
+            else
             {
                 workingStations.Add(Stations[i]);
             }
         }
+        
+        //Don't break any more if already at max
+        if(brokenStations >= maxBroken) return; 
 
         //randomly select a station to break if there's a valid station to break
         if (workingStations.Count > 0)

@@ -9,7 +9,17 @@ public class StatusManager : MonoBehaviour
 {
     public Vector2 StatusTime = new Vector2(7,10);
     private StatusCreator SC;
-    
+    public EffectSpawner ES;
+
+    private string[] StatusTexts = new[]
+    {
+        "Tipsy", //Drunk
+        "Tired", //Slow
+        "Bored", //Distracted
+        "Heart burn", //Burn
+        "CRINGE", //Cringe
+    };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +32,9 @@ public class StatusManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(StatusTime.x, StatusTime.y));
-            // SC.CreateStatus((StatusCreator.eStatusEffect)UnityEngine.Random.Range(0, Enum.GetValues(typeof(StatusCreator.eStatusEffect)).Length));
-            SC.CreateStatus(StatusCreator.eStatusEffect.Burn);
-            //todo show in 3D view
+            var randomStatus = UnityEngine.Random.Range(0, Enum.GetValues(typeof(StatusCreator.eStatusEffect)).Length);
+            SC.CreateStatus((StatusCreator.eStatusEffect)randomStatus);
+            ES.Spawn(StatusTexts[randomStatus]);
         }
     }
 }

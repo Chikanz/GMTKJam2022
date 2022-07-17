@@ -54,6 +54,7 @@ public class Dave : MonoBehaviour
 
     public void highlight()
     {
+        if (state == State.Drunk) return;
         GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
@@ -64,6 +65,7 @@ public class Dave : MonoBehaviour
         if(myStation) myStation.AssignDave(null);
         agent.SetDestination(transform.position);
         //play drunk anim
+        GetComponent<MeshRenderer>().material.color = Color.yellow;
         Invoke(nameof(GetOffTheBeers), DrunkTime);
     }
     
@@ -80,5 +82,6 @@ public class Dave : MonoBehaviour
     public void GetOffTheBeers()
     {
         state = State.Working;
+        GetComponent<MeshRenderer>().material.color = Color.white;
     }
 }

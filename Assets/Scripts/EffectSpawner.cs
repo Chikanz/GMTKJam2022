@@ -1,33 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EffectSpawner : MonoBehaviour
 {
     #region Variables
-    public GameObject spawnObject;
-    public float spawnTimer;
+
+    [SerializeField] private GameObject spawnObject;
     [SerializeField] float spawnHeightRange;
     float rate;
+    private Camera mainCamera;
+
     #endregion
+
     void Start()
     {
-        rate = spawnTimer;
+        //get camera
+        mainCamera = Camera.main;
     }
 
     void Update()
     {
-         Spawn();
     }
 
-    void Spawn()
+    public void Spawn(string text)
     {
-        spawnTimer -= Time.deltaTime;
-        if(spawnTimer <= 0f)
-        {
-            Instantiate(spawnObject,new Vector3(this.transform.position.x, this.transform.position.y + GetModifier(), this.transform.position.z), Quaternion.identity, this.transform);
-            spawnTimer = rate;
-        }
+        var status = Instantiate(spawnObject,
+            new Vector3(
+                this.transform.position.x,
+                this.transform.position.y,
+                this.transform.position.z),
+            transform.rotation, this.transform);
+        
+
+        status.GetComponentInChildren<TextMeshPro>().text = text;
+        
+        Destroy(status, 10);
     }
 
     float GetModifier()
